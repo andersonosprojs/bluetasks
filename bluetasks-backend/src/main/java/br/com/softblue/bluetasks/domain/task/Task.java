@@ -3,6 +3,7 @@ package br.com.softblue.bluetasks.domain.task;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -13,9 +14,12 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.softblue.bluetasks.domain.user.AppUser;
 
 @Entity
+@EntityListeners(TaskListener.class)
 public class Task {
 
 	@Id
@@ -34,6 +38,7 @@ public class Task {
 	
 	@ManyToOne
 	@JoinColumn(name = "app_user_id")
+	@JsonIgnore
 	private AppUser appUser;
 	
 	public Task() {
